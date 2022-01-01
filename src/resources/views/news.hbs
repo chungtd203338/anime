@@ -1,0 +1,24 @@
+<style>
+    body {
+        background-color: #ffcfd3;
+    }
+</style>
+<div class="mt-4">
+    <div class="row">
+        <div class="col-sm-6 col-lg-9 news-abc">
+            {{#each news}}
+            <div class="card card-news-item">
+                <div class="card-body">
+                    <a href="/news/{{this.slug}}">
+                        <h5 class="card-title">{{this.name}}</h5>
+                    </a>
+                    <p class="card-text">{{this.description}}</p>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        <div class="col-lg-0.1">
+            <div class="abc"></div>
+        </div>
+    </div>
+</div>

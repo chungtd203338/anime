@@ -1,0 +1,119 @@
+.card-course-item {
+  margin-top: 16px;
+  min-height: 415px;
+  width: 340px; }
+
+.user-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 6px; }
+
+.checkbox-select-all-options {
+  width: 175px;
+  margin: 0 16px; }
+
+.description {
+  margin: 10px 265px 10px 0; }
+
+.navbar {
+  height: 60px;
+  color: black; }
+
+.sasa {
+  font-family: 'Fredoka One', cursive;
+  font-size: 300%;
+  margin: 0 40px 0 0; }
+
+.education {
+  font-size: 40%;
+  margin-left: -13px; }
+
+.tinymenu {
+  margin: 0 20px -5px 20px;
+  font-size: 110%; }
+
+.icon-header {
+  margin-bottom: 8px; }
+
+.card-news-item {
+  margin-top: 15px;
+  background-color: #e7f2fe; }
+
+.news-item {
+  font-family: 'Zen Old Mincho', serif; }
+
+.news-name {
+  margin: 40px 0 10px 0; }
+
+.news-content {
+  margin-top: 50px; }
+
+.dropdown-menu {
+  background-color: #d8cefd; }
+
+.footer {
+  margin: 100px 0 0 0;
+  height: 150px; }
+
+.sasa-education-footer {
+  font-size: 600%;
+  margin: -50px 0 0 0; }
+
+.svg-inline--fa {
+  width: 40px;
+  height: 40px;
+  color: #ff751a;
+  margin-bottom: -40px; }
+
+.trash {
+  margin: 0 6px 0 1000px;
+  font-size: 150%; }
+
+.course-list {
+  margin: 0 6px 0 1000px;
+  font-size: 150%; }
+
+.abc {
+  padding-top: 313px;
+  float: right; }
+
+.card-text {
+  font-size: 80%; }
+
+.table {
+  min-height: 157px; }
+
+.search {
+  margin: 20px 0px 20px 0px; }
+
+input {
+  outline: none; }
+
+input[type=search] {
+  -webkit-appearance: textfield;
+  font-family: inherit;
+  font-size: 100%; }
+
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button {
+  display: none; }
+
+input[type=search] {
+  background: #d8cefd url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
+  border: solid 1px #9e85fa;
+  padding: 9px 10px 9px 32px;
+  width: 250px;
+  height: 37px;
+  -webkit-border-radius: 10em;
+  -moz-border-radius: 10em;
+  border-radius: 10em;
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  transition: all .5s; }
+
+input:-moz-placeholder {
+  color: #999; }
+
+input::-webkit-input-placeholder {
+  color: #999; }

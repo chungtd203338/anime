@@ -1,0 +1,16 @@
+C:\Javascript\Blog_1\bin\Debug\net5.0\Blog_1.exe
+C:\Javascript\Blog_1\bin\Debug\net5.0\Blog_1.deps.json
+C:\Javascript\Blog_1\bin\Debug\net5.0\Blog_1.runtimeconfig.json
+C:\Javascript\Blog_1\bin\Debug\net5.0\Blog_1.runtimeconfig.dev.json
+C:\Javascript\Blog_1\bin\Debug\net5.0\Blog_1.dll
+C:\Javascript\Blog_1\bin\Debug\net5.0\ref\Blog_1.dll
+C:\Javascript\Blog_1\bin\Debug\net5.0\Blog_1.pdb
+C:\Javascript\Blog_1\obj\Debug\net5.0\Blog_1.csproj.AssemblyReference.cache
+C:\Javascript\Blog_1\obj\Debug\net5.0\Blog_1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Javascript\Blog_1\obj\Debug\net5.0\Blog_1.AssemblyInfoInputs.cache
+C:\Javascript\Blog_1\obj\Debug\net5.0\Blog_1.AssemblyInfo.cs
+C:\Javascript\Blog_1\obj\Debug\net5.0\Blog_1.csproj.CoreCompileInputs.cache
+C:\Javascript\Blog_1\obj\Debug\net5.0\Blog_1.dll
+C:\Javascript\Blog_1\obj\Debug\net5.0\ref\Blog_1.dll
+C:\Javascript\Blog_1\obj\Debug\net5.0\Blog_1.pdb
+C:\Javascript\Blog_1\obj\Debug\net5.0\Blog_1.genruntimeconfig.cache

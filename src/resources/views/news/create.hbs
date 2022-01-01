@@ -1,0 +1,31 @@
+<style>
+    body {
+        background-color: #ffcfd3;
+    }
+</style>
+<div class="mt-4">
+    <div class="row">
+        <div class="col-lg-9">
+            <h3>Đăng bài viết</h3>
+
+            <form method="POST" action="/news/store">
+                <div class="form-group">
+                    <label for="name">Tên bài viết</label>
+                    <textarea class="form-control" id="name" name="name"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="description">Mô tả</label>
+                    <textarea class="form-control" id="description" name="description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="content">Nội dung</label>
+                    <textarea class="content" rows="3" cols="109" id="content" name="content"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Thêm bài viết</button>
+            </form>
+        </div>
+        <div class="col-lg-0.1">
+            <div class="abc"></div>
+        </div>
+    </div>
+</div>

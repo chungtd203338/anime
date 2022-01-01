@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Alfa+Slab+One&family=Black+And+White+Picture&family=Fredoka+One&family=Fruktur&family=Ultra&display=swap" rel="stylesheet" />
+        <a class="navbar-brand sasa" style="color: #fe7e8b;" href="/">Sasa <small class="education" style="color: aquamarine;">education</small></a>
+        <a class="navbar-brand tinymenu" style="color: #d8cefd;" href="/"><span class="oi oi-home icon-header" style="color: #9e85fa;"></span> Home</a>
+        <a class="navbar-brand tinymenu" style="color: #d8cefd;" href="/news"><span class="oi oi-document icon-header" style="color: #9e85fa;"></span> News</a>
+        <div class="navbar-brand tinymenu" style="color: #d8cefd;" href="/search">
+            {{!-- <span class="oi oi-magnifying-glass icon-header" style="color: #9e85fa;"></span> --}}
+            <div class="search">
+                <form class="form-group" method="GET" action="/search">
+                    <input type="search" name="name" id="search-input" class="form-control" placeholder="Search" />
+                </form>
+            </div>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="https://cdn.fullstack.edu.vn/f8-learning/user_photos/104566/6155b2d604a29.jpg" alt="" class="user-avatar" />
+                        Hà Lệ Quyên
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/courses/create">Đăng khóa học</a>
+                        <a class="dropdown-item" href="/news/create">Đăng bài viết</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/me/stored/courses">Khóa học của tôi</a>
+                        <a class="dropdown-item" href="/me/stored/news">Bài viết của tôi</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/user/login">Đăng xuất</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
