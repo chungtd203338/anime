@@ -5,10 +5,10 @@ const { multipleMongooseToObject } = require('../../util/mongoose');
 
 class MeController {
     storedCourses(req, res, next) {
-
         Promise.all([
-            Course.find({}).sortable(req), 
-            Course.countDocumentsDeleted()])
+            Course.find({}).sortable(req),
+            Course.countDocumentsDeleted(),
+        ])
             .then(([courses, deletedCount]) =>
                 res.render('me/stored-courses', {
                     deletedCount,
@@ -19,7 +19,8 @@ class MeController {
     }
 
     trashCourses(req, res, next) {
-        Course.findDeleted({}).sortable(req)
+        Course.findDeleted({})
+            .sortable(req)
             .then((courses) =>
                 res.render('me/trash-courses', {
                     courses: multipleMongooseToObject(courses),
@@ -29,10 +30,7 @@ class MeController {
     }
 
     storedNews(req, res, next) {
-
-        Promise.all([
-            News.find({}).sortable(req),
-            News.countDocumentsDeleted()])
+        Promise.all([News.find({}).sortable(req), News.countDocumentsDeleted()])
             .then(([news, deletedCount]) =>
                 res.render('me/stored-news', {
                     deletedCount,
@@ -43,7 +41,8 @@ class MeController {
     }
 
     trashNews(req, res, next) {
-        News.findDeleted({}).sortable(req)
+        News.findDeleted({})
+            .sortable(req)
             .then((news) =>
                 res.render('me/trash-news', {
                     news: multipleMongooseToObject(news),

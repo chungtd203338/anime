@@ -6,15 +6,16 @@ mongoose.plugin(slug);
 
 const Schema = mongoose.Schema;
 
-const NewsSchema = new Schema({
-    name: { type: String, required: true, },
-    description: { type: String, },
-    content: { type: String, required: true, },
-    slug: { type: String, slug: 'name', unique: true },
-},
-        {
+const NewsSchema = new Schema(
+    {
+        name: { type: String, required: true },
+        description: { type: String },
+        content: { type: String, required: true },
+        slug: { type: String, slug: 'name', unique: true },
+    },
+    {
         timestamps: true,
-        },
+    },
 );
 
 NewsSchema.query.sortable = function (req) {
@@ -25,7 +26,7 @@ NewsSchema.query.sortable = function (req) {
         });
     }
     return this;
-}
+};
 
 mongoose.plugin(slug);
 NewsSchema.plugin(mongooseDelete, {

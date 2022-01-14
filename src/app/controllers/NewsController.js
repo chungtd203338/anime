@@ -31,15 +31,15 @@ class NewsController {
         const news = new News(req.body);
         news.save()
             .then(() => res.redirect('/news'))
-            .catch(error => {});
+            .catch((error) => {});
     }
-    
+
     edit(req, res, next) {
         News.findById(req.params.id)
-            .then(news =>
+            .then((news) =>
                 res.render('news/edit', {
                     news: mongooseToObject(news),
-                })
+                }),
             )
             .catch(next);
     }

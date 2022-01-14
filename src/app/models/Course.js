@@ -27,7 +27,7 @@ CourseSchema.query.sortable = function (req) {
         });
     }
     return this;
-}
+};
 
 mongoose.plugin(slug);
 CourseSchema.plugin(mongooseDelete, {

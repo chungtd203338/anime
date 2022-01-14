@@ -117,3 +117,7 @@ input:-moz-placeholder {
 
 input::-webkit-input-placeholder {
   color: #999; }
+
+.commentft {
+  font-size: 150%;
+  margin-top: -4px; }

@@ -13,8 +13,10 @@ class SiteController {
     }
 
     async search(req, res) {
-        console.log(req.query.name)
-        var courses = await Course.find({ "name": { $regex: '.*' + req.query.name+ '.*' } })
+        console.log(req.query.name);
+        var courses = await Course.find({
+            name: { $regex: '.*' + req.query.name + '.*' },
+        });
         res.render('home', {
             courses: multipleMongooseToObject(courses),
         });

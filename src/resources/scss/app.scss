@@ -68,7 +68,7 @@
 }
 
 .footer {
-    margin:100px 0 0 0;
+    margin: 100px 0 0 0;
     height: 150px;
 }
 
@@ -107,41 +107,46 @@
     min-height: 157px;
 }
 
-
-
-.search{
-	margin: 20px 0px 20px 0px;
+.search {
+    margin: 20px 0px 20px 0px;
 }
 input {
-  outline: none;
+    outline: none;
 }
-input[type=search] {
-  -webkit-appearance: textfield;
-  font-family: inherit;
-  font-size: 100%;
+input[type='search'] {
+    -webkit-appearance: textfield;
+    font-family: inherit;
+    font-size: 100%;
 }
 input::-webkit-search-decoration,
 input::-webkit-search-cancel-button {
-  display: none; 
+    display: none;
 }
-input[type=search] {
-  background: #d8cefd url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
-  border: solid 1px #9e85fa;
-  padding: 9px 10px 9px 32px;
-  width: 250px;
-  height: 37px;
-  
-  -webkit-border-radius: 10em;
-  -moz-border-radius: 10em;
-  border-radius: 10em;
-  
-  -webkit-transition: all .5s;
-  -moz-transition: all .5s;
-  transition: all .5s;
+input[type='search'] {
+    background: #d8cefd
+        url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png)
+        no-repeat 9px center;
+    border: solid 1px #9e85fa;
+    padding: 9px 10px 9px 32px;
+    width: 250px;
+    height: 37px;
+
+    -webkit-border-radius: 10em;
+    -moz-border-radius: 10em;
+    border-radius: 10em;
+
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
 }
 input:-moz-placeholder {
-  color: #999;
+    color: #999;
 }
 input::-webkit-input-placeholder {
-  color: #999;
+    color: #999;
+}
+
+.commentft {
+    font-size: 150%;
+    margin-top: -4px;
 }
