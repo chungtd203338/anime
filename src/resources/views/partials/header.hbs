@@ -14,25 +14,32 @@
                 </form>
             </div>
         </div>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div>
+        {{#if_exists (accessToken)}}
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="https://cdn.fullstack.edu.vn/f8-learning/user_photos/104566/6155b2d604a29.jpg" alt="" class="user-avatar" />
-                        Hà Lệ Quyên
+                        {{fullname}}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        {{#is_admin (email)}}
                         <a class="dropdown-item" href="/courses/create">Đăng khóa học</a>
                         <a class="dropdown-item" href="/news/create">Đăng bài viết</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/me/stored/courses">Khóa học của tôi</a>
                         <a class="dropdown-item" href="/me/stored/news">Bài viết của tôi</a>
                         <div class="dropdown-divider"></div>
+                        {{/is_admin}}
                         <a class="dropdown-item" href="/user/logout">Đăng xuất</a>
                     </div>
                 </li>
             </ul>
-        </div>
+        {{else}}
+            <ul class="navbar-nav ml-auto" style="color: white;">
+                <a href="/user/login" style="color: white; text-decoration: none; padding: 0 5px;">Login</a>
+                /
+                <a href="/user/register" style="color: white; text-decoration: none; padding: 0 5px;">Register</a>
+            </ul>
+        {{/if_exists}}
     </div>
 </nav>

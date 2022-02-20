@@ -4,10 +4,14 @@ const router = express.Router();
 
 const siteController = require('../app/controllers/SiteController');
 
-router.get('/search', siteController.search);
+router.get(
+    '/search',
+    MiddlewareController.verifyToken,
+    siteController.search
+);
 router.get(
     '/',
-    // MiddlewareController.verifyToken,
+    MiddlewareController.verifyToken,
     siteController.index,
 );
 
