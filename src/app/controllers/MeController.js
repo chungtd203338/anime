@@ -1,51 +1,28 @@
 const User = require('../models/User');
-const Course = require('../models/Course');
-const News = require('../models/News');
+const Film = require('../models/Film');
 const { multipleMongooseToObject } = require('../../util/mongoose');
 
 class MeController {
-    storedCourses(req, res, next) {
+    storedFilms(req, res, next) {
         Promise.all([
-            Course.find({}).sortable(req),
-            Course.countDocumentsDeleted(),
+            Film.find({}).sortable(req),
+            Film.countDocumentsDeleted(),
         ])
-            .then(([courses, deletedCount]) =>
-                res.render('me/stored-courses', {
+            .then(([films, deletedCount]) =>
+                res.render('me/stored-films', {
                     deletedCount,
-                    courses: multipleMongooseToObject(courses),
+                    films: multipleMongooseToObject(films),
                 }),
             )
             .catch(next);
     }
 
-    trashCourses(req, res, next) {
-        Course.findDeleted({})
+    trashFilms(req, res, next) {
+        Film.findDeleted({})
             .sortable(req)
-            .then((courses) =>
-                res.render('me/trash-courses', {
-                    courses: multipleMongooseToObject(courses),
-                }),
-            )
-            .catch(next);
-    }
-
-    storedNews(req, res, next) {
-        Promise.all([News.find({}).sortable(req), News.countDocumentsDeleted()])
-            .then(([news, deletedCount]) =>
-                res.render('me/stored-news', {
-                    deletedCount,
-                    news: multipleMongooseToObject(news),
-                }),
-            )
-            .catch(next);
-    }
-
-    trashNews(req, res, next) {
-        News.findDeleted({})
-            .sortable(req)
-            .then((news) =>
-                res.render('me/trash-news', {
-                    news: multipleMongooseToObject(news),
+            .then((films) =>
+                res.render('me/trash-films', {
+                    films: multipleMongooseToObject(films),
                 }),
             )
             .catch(next);

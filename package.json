@@ -7,7 +7,7 @@
     "beautiful": "prettier --single-quote --trailing-comma all --tab-width 4 --write src/**/*.{js,json,scss}",
     "start": "nodemon --inspect src/index.js",
     "watch": "node-sass -w src/resources/scss/app.scss -o src/public/css/",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha ./test/index.js -R spec"
   },
   "repository": {
     "type": "git",
@@ -15,14 +15,10 @@
   },
   "keywords": [
     "blog",
-    "halequyen"
+    "chung"
   ],
-  "author": "halequyen",
+  "author": "chung",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/halequyen/halequyen_blog/issues"
-  },
-  "homepage": "https://github.com/halequyen/halequyen_blog#readme",
   "lint-staged": {
     "src/**/*.{js,json,scss}": "prettier --single-quote --trailing-comma all --tab-width 4 --write"
   },
@@ -30,6 +26,7 @@
     "@ckeditor/ckeditor5-build-classic": "^31.0.0",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.3",
     "express": "^4.17.1",
     "express-handlebars": "^5.3.4",
     "handlebars": "^4.7.7",
@@ -38,15 +35,20 @@
     "mongoose": "^6.0.12",
     "mongoose-delete": "^0.5.4",
     "mongoose-slug-generator": "^1.0.4",
+    "node-fetch": "^2.6.1",
     "search-query-parser": "^1.6.0",
-    "start": "^5.1.0"
+    "start": "^5.1.0",
+    "supertest": "^6.3.3"
   },
   "devDependencies": {
+    "chai": "^5.0.0",
     "husky": "^7.0.2",
     "lint-staged": "^11.1.2",
+    "mocha": "^10.2.0",
     "morgan": "^1.10.0",
     "node-sass": "^6.0.1",
     "nodemon": "^2.0.14",
     "prettier": "^2.4.1"
-  }
+  },
+  "type": "commonjs"
 }

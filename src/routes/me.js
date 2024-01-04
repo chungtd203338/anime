@@ -4,10 +4,7 @@ const router = express.Router();
 
 const meController = require('../app/controllers/MeController');
 
-router.get('/stored/courses', MiddlewareController.verifyTokenAdmin, meController.storedCourses);
-router.get('/trash/courses', MiddlewareController.verifyTokenAdmin, meController.trashCourses);
-
-router.get('/stored/news', MiddlewareController.verifyTokenAdmin, meController.storedNews);
-router.get('/trash/news', MiddlewareController.verifyTokenAdmin, meController.trashNews);
+router.get('/stored/films', MiddlewareController.verifyTokenAdmin, meController.storedFilms);
+router.get('/trash/films', MiddlewareController.verifyTokenAdmin, meController.trashFilms);
 
 module.exports = router;

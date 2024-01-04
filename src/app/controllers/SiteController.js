@@ -1,12 +1,12 @@
-const Course = require('../models/Course');
+const Film = require('../models/Film');
 const { multipleMongooseToObject } = require('../../util/mongoose');
 
 class SiteController {
     index(req, res, next) {
-        Course.find({})
-            .then((courses) => {
+        Film.find({})
+            .then((films) => {
                 res.render('home', {
-                    courses: multipleMongooseToObject(courses),
+                    films: multipleMongooseToObject(films),
                 });
             })
             .catch(next);
@@ -14,11 +14,11 @@ class SiteController {
 
     async search(req, res) {
         console.log(req.query.name);
-        var courses = await Course.find({
-            name: { $regex: '.*' + req.query.name + '.*' },
+        var films = await Film.find({
+            name: { "$regex": req.query.name, "$options": "i" },
         });
         res.render('home', {
-            courses: multipleMongooseToObject(courses),
+            films: multipleMongooseToObject(films),
         });
     }
 }

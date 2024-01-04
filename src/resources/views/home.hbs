@@ -5,14 +5,14 @@
 </style>
 <div class="mt-4">
     <div class="row">
-        {{#each courses}}
+        {{#each films}}
         <div class="col-sm-6 col-lg-4">
-            <div class="card card-course-item">
-                <a href="/courses/{{this.slug}}">
+            <div class="card card-film-item">
+                <a href="/films/{{this.slug}}">
                     <img class="card-img-top" src="{{this.image}}" alt="{{this.name}}" />
                 </a>
                 <div class="card-body">
-                    <a href="/courses/{{this.slug}}">
+                    <a href="/films/{{this.slug}}">
                         <h5 class="card-title">{{this.name}}</h5>
                     </a>
                     <p class="card-text">{{this.description}}</p>
@@ -28,8 +28,8 @@
 </div>
 
 <script>
-    var courses = document.getElementsByTagName("a");
-    for (courseIndex in courses) {
-        console.log(courses[courseIndex].href);
+    var films = document.getElementsByTagName("a");
+    for (filmIndex in films) {
+        console.log(films[filmIndex].href);
     }
 </script>

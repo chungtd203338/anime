@@ -3,9 +3,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Alfa+Slab+One&family=Black+And+White+Picture&family=Fredoka+One&family=Fruktur&family=Ultra&display=swap" rel="stylesheet" />
-        <a class="navbar-brand sasa" style="color: #fe7e8b;" href="/">Sasa <small class="education" style="color: aquamarine;">education</small></a>
-        <a class="navbar-brand tinymenu" style="color: #d8cefd;" href="/"><span class="oi oi-home icon-header" style="color: #9e85fa;"></span> Home</a>
-        <a class="navbar-brand tinymenu" style="color: #d8cefd;" href="/news"><span class="oi oi-document icon-header" style="color: #9e85fa;"></span> News</a>
+        <a class="navbar-brand sasa" style="color: #fe7e8b;" href="/">Anime</a>
         <div class="navbar-brand tinymenu" style="color: #d8cefd;" href="/search">
             {{!-- <span class="oi oi-magnifying-glass icon-header" style="color: #9e85fa;"></span> --}}
             <div class="search">
@@ -23,11 +21,9 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         {{#is_admin (email)}}
-                        <a class="dropdown-item" href="/courses/create">Đăng khóa học</a>
-                        <a class="dropdown-item" href="/news/create">Đăng bài viết</a>
+                        <a class="dropdown-item" href="/films/create">Đăng phim</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/me/stored/courses">Khóa học của tôi</a>
-                        <a class="dropdown-item" href="/me/stored/news">Bài viết của tôi</a>
+                        <a class="dropdown-item" href="/me/stored/films">Danh sách phim</a>
                         <div class="dropdown-divider"></div>
                         {{/is_admin}}
                         <a class="dropdown-item" href="/user/logout">Đăng xuất</a>

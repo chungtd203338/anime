@@ -1,8 +1,8 @@
 @import 'variables';
 
-.card-course-item {
+.card-film-item {
     margin-top: 16px;
-    min-height: 415px;
+    min-height: 530px;
     width: 340px;
 }
 
@@ -40,21 +40,8 @@
     margin-bottom: 8px;
 }
 
-.card-news-item {
-    margin-top: 15px;
-    background-color: #e7f2fe;
-}
-
-.news-item {
-    font-family: 'Zen Old Mincho', serif;
-}
-
-.news-name {
-    margin: 40px 0 10px 0;
-}
-
-.news-content {
-    margin-top: 50px;
+.navbar-nav {
+    margin-right: 70px;
 }
 
 .dropdown-menu {
@@ -83,13 +70,13 @@
     font-size: 150%;
 }
 
-.course-list {
+.film-list {
     margin: 0 6px 0 1000px;
     font-size: 150%;
 }
 
 .abc {
-    padding-top: 313px;
+    padding-top: 280px;
     float: right;
 }
 
@@ -98,11 +85,11 @@
 }
 
 .table {
-    min-height: 157px;
+    min-height: 120px;
 }
 
 .search {
-    margin: 20px 0px 20px 0px;
+    margin: 20px 0px 20px 250px;
 }
 input {
     outline: none;
@@ -143,8 +130,4 @@ input::-webkit-input-placeholder {
 .commentft {
     font-size: 150%;
     margin-top: -4px;
-}
-
-.thongke {
-    margin-left: 140px;
 }

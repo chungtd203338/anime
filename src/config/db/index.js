@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 async function connect() {
     try {
-        await mongoose.connect('mongodb://localhost:27017/sasa_education');
+        await mongoose.connect(`${process.env.MONGO_URL}/anime`);
         console.log('Connect successfully!!!');
     } catch (error) {
         console.log('Connect failure!!!');

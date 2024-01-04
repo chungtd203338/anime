@@ -5,10 +5,11 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const methodOverride = require('method-override');
 const handlebars = require('express-handlebars');
+const dotenv = require('dotenv');
+dotenv.config();
 
 //test
-const newsModel = require('../src/app/models/News');
-const courseModel = require('../src/app/models/Course');
+const filmModel = require('../src/app/models/Film');
 //end test
 const SortMiddleware = require('./app/middlewares/SortMiddleware');
 
@@ -18,7 +19,7 @@ const db = require('./config/db');
 db.connect();
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(cookieParser());
 
@@ -37,8 +38,6 @@ app.use(express.json());
 app.use(methodOverride('_method'));
 
 app.use(SortMiddleware);
-
-//app.use(morgan('combined'))
 
 app.engine(
     'hbs',
@@ -64,14 +63,5 @@ app.get('/newstest', async (req, res) => {
     });
     res.json(data);
 });
-/*
-app.get("/coursetest", async (req, res)=>{
-    console.log(req.query)
-    if(req.query.name == undefined){
-        var data = await courseModel.find()
-        res.json(data)
-    }
-    var data = await courseModel.find({ "name": { $regex: '.*' + req.query.name+ '.*' } })
-    res.json(data)
-})*/
-//end test
+
+module.exports = app;

@@ -1,0 +1,142 @@
+<style>
+    body {
+        background-color: #FFE5E7;
+    }
+</style>
+<form class="mt-4" name="container-form" method="POST" action="/films/handle-trash-form-actions">
+    <div>
+        <h3>Phim đã xóa</h3>
+        <a class="film-list" href="/me/stored/films" style="color: #00bfff;"><span class="oi oi-list"></span></a>
+        <div class="mt-4 d-flex align-items-center">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="checkbox-trash-all" />
+                <label class="form-check-label" for="checkbox-trash-all">
+                    Chọn tất cả
+                </label>
+            </div>
+            <select class="form-control form-control-sm checkbox-select-all-options" name="action" required>
+                <option value="">-- Chọn hành động --</option>
+                <option value="restore">Khôi phục</option>
+                <option value="deleteMany">Xóa vĩnh viễn</option>
+            </select>
+
+            <button class="btn btn-primary btn-sm checktrash-all-submit-btn" disabled>Thực hiện</button>
+        </div>
+    </div>
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th scope="col" colspan="2">#</th>
+                <th scope="col">
+                    Tên phim {{{sortable 'name' _sort}}}
+                </th>
+                <th scope="col" colspan="2">
+                    Thời gian xóa {{{sortable 'deletedAt' _sort}}}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each films}}
+            <tr>
+                <td>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="filmIds" value="{{this._id}}" />
+                    </div>
+                </td>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.level}}</td>
+                <td>{{this.deletedAt}}</td>
+                <td>
+                    <a href="" class="btn btn-link btn-restore" data-id="{{this._id}}">Khôi phục</a>
+                    <a href="" class="btn btn-link" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-film-modal">Xóa vĩnh viễn</a>
+                </td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="5" class="text-center">
+                    Thùng rác trống.
+                    <a href="/me/stored/films">Danh sách phim</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</form>
+
+{{!-- Confirm delete film--}}
+<div id="delete-film-modal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xóa phim?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Hành động này không thể khôi phục. Bạn vẫn muốn xóa phim này?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-delete-film" type="button" class="btn btn-danger">Xóa vĩnh viễn</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form name="delete-film-form" method="POST"></form>
+<form name="restore-film-form" method="POST"></form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var filmId;
+        var deleteForm = document.forms["delete-film-form"];
+        var restoreForm = document.forms["restore-film-form"];
+        var containerForm = $('form[name="container-form"]');
+        var btnDeleteFilm = document.getElementById("btn-delete-film");
+        var restoreBtn = $(".btn-restore");
+        var checkboxtrashAll = $("#checkbox-trash-all");
+        var filmItemCheckboxtrash = $('input[name="filmIds"]');
+        var checktrashAllSubmitBtn = $(".checktrash-all-submit-btn");
+
+        $("#delete-film-modal").on("show.bs.modal", function (event) {
+            var button = $(event.relatedTarget);
+            filmId = button.data("id");
+            console.log("filmId = " + filmId);
+        });
+
+        btnDeleteFilm.onclick = function () {
+            deleteForm.action = "/films/" + filmId + "/force?_method=DELETE";
+            deleteForm.submit();
+        };
+
+        restoreBtn.click(function (e) {
+            e.preventDefault();
+            var filmId = $(this).data("id");
+            restoreForm.action = "/films/" + filmId + "/restore?_method=PATCH";
+            restoreForm.submit();
+        });
+
+        checkboxtrashAll.change(function () {
+            var isCheckedtrashAll = $(this).prop("checked");
+            filmItemCheckboxtrash.prop("checked", isCheckedtrashAll);
+            renderChecktrashAllSubmitBtn();
+        });
+
+        filmItemCheckboxtrash.change(function () {
+            var isCheckedtrashAll = filmItemCheckboxtrash.length === $('input[name="filmIds"]:checked').length;
+            checkboxtrashAll.prop("checked", isCheckedtrashAll);
+            renderChecktrashAllSubmitBtn();
+        });
+
+        function renderChecktrashAllSubmitBtn() {
+            var checkedtrashCount = $('input[name="filmIds"]:checked').length;
+            if (checkedtrashCount > 0) {
+                checktrashAllSubmitBtn.attr("disabled", false);
+            } else {
+                checktrashAllSubmitBtn.attr("disabled", true);
+            }
+        }
+    });
+</script>
