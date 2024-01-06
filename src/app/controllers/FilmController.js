@@ -22,8 +22,7 @@ class FilmController {
     store(req, res, next) {
         req.body.image = `https://i.ytimg.com/vi/${req.body.videoId}/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDDC5AcZRCNiOzGAUfnhRR6awZSpw`;
         const film = new Film(req.body);
-        film
-            .save()
+        film.save()
             .then(() => res.redirect(`/me/stored/films`))
             .catch((error) => {});
     }
@@ -99,20 +98,20 @@ class FilmController {
 
     test_get(req, res) {
         res.json({
-            hello: 'world'
-          });
+            hello: 'world',
+        });
     }
 
     test_post(req, res) {
         if (req.body.name) {
             res.json({
-              name: req.body.name
+                name: req.body.name,
             });
-          } else {
+        } else {
             res.status(400).json({
-              message: 'name is a required param'
+                message: 'name is a required param',
             });
-          }
+        }
     }
 }
 

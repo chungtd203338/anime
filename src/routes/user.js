@@ -9,8 +9,9 @@ router.post('/pass', userController.pass);
 router.get('/register', userController.register);
 router.post('/store', userController.store);
 router.post('/refresh', userController.refresh);
-router.get('/logout',
-    // middlewareController.verifyToken, 
-    userController.logout
+router.get(
+    '/logout',
+    // middlewareController.verifyToken,
+    userController.logout,
 );
 module.exports = router;

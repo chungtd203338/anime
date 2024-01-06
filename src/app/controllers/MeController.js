@@ -4,10 +4,7 @@ const { multipleMongooseToObject } = require('../../util/mongoose');
 
 class MeController {
     storedFilms(req, res, next) {
-        Promise.all([
-            Film.find({}).sortable(req),
-            Film.countDocumentsDeleted(),
-        ])
+        Promise.all([Film.find({}).sortable(req), Film.countDocumentsDeleted()])
             .then(([films, deletedCount]) =>
                 res.render('me/stored-films', {
                     deletedCount,

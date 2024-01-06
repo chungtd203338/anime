@@ -6,10 +6,12 @@ const MiddlewareController = {
         // const token = req.headers.token;
         const token = req.headers.cookie;
         if (token) {
-            let accessToken = ''
-            const value = accessToken = `;${token}`.split(';').find(item => item.split('=')[ 0 ] === 'accessToken');
-            if (value) accessToken = value.split('=')[ 1 ]
-            else accessToken = null
+            let accessToken = '';
+            const value = (accessToken = `;${token}`
+                .split(';')
+                .find((item) => item.split('=')[0] === 'accessToken'));
+            if (value) accessToken = value.split('=')[1];
+            else accessToken = null;
             jwt.verify(accessToken, 'secretkey', (err, user) => {
                 if (err) {
                     res.status(403).json('Token is not valid!');
@@ -19,7 +21,7 @@ const MiddlewareController = {
             });
         } else {
             // res.status(401).json('Ban chua dang nhap!');
-            res.redirect('/user/login')
+            res.redirect('/user/login');
         }
     },
 

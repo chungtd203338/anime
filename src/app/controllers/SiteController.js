@@ -15,7 +15,7 @@ class SiteController {
     async search(req, res) {
         console.log(req.query.name);
         var films = await Film.find({
-            name: { "$regex": req.query.name, "$options": "i" },
+            name: { $regex: req.query.name, $options: 'i' },
         });
         res.render('home', {
             films: multipleMongooseToObject(films),
