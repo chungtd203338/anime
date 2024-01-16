@@ -7,14 +7,14 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'node -v'
-                // sh 'npm install'
+                sh 'npm install'
             }
         }
-        // stage('Test') {
-        //     steps {
-        //         sh 'npm run test'
-        //     }
-        // }
+        stage('Test') {
+            steps {
+                sh 'npm run test'
+            }
+        }
         // stage('Build') { 
         //     steps {
         //         sh './jenkins/scripts/deliver.sh' 
@@ -25,7 +25,7 @@ pipeline {
     }
     post {
       always {
-        echo 'I will always say Hello again!'
+        echo 'abcxyz'
       }
     }
 }
