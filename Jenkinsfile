@@ -53,7 +53,7 @@ pipeline {
         //     steps{
         //         script {
         //             sh "cat /home/chung/jenkins/k8s_config/mongo.yaml"
-        //             sh "kubectl apply -f /home/chung/jenkins/k8s_config/mongo.yaml"
+        //             sh "kubectl apply -f /home/chung/jenkins/k8s_config/mongo.yaml"  
         //         }
         //     }
         // }
