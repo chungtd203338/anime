@@ -21,11 +21,6 @@ spec:
           #     cpu: "500m"
           ports:
             - containerPort: 5000
-          command: ['sh', '-exc']
-          args:
-            - |
-              # Copy file env
-              cp /shared/.env /usr/src/app
           env:
             - name: MONGO_IP
               valueFrom:
