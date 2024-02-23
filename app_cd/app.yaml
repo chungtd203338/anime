@@ -33,34 +33,34 @@ spec:
                   fieldPath: status.hostIP
             - name: MONGO_PORT
               value: '30200'
-      initContainers:
-        - name: getport
-          image: bitnami/kubectl:1.19.3
-          imagePullPolicy: IfNotPresent
-          env:
-          - name: POD_NAMESPACE
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.namespace
-          command:
-          - sh
-          - -exc
-          - |
-            MONGO_IP=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="InternalIP")].address }')
-            MONGO_PORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services mongo)
-            PORT=5000
-            echo "export MONGO_IP=$MONGO_IP" > /shared/.env
-            echo "export MONGO_PORT=$MONGO_PORT" >> /shared/.env
-            echo "export PORT=$PORT" >> /shared/.env
-          volumeMounts:
-          - name: config-volume
-            mountPath: /shared   
+      # initContainers:
+      #   - name: getport
+      #     image: bitnami/kubectl:1.19.3
+      #     imagePullPolicy: IfNotPresent
+      #     env:
+      #     - name: POD_NAMESPACE
+      #       valueFrom:
+      #         fieldRef:
+      #           fieldPath: metadata.namespace
+      #     command:
+      #     - sh
+      #     - -exc
+      #     - |
+      #       MONGO_IP=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="InternalIP")].address }')
+      #       MONGO_PORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services mongo)
+      #       PORT=5000
+      #       echo "export MONGO_IP=$MONGO_IP" > /shared/.env
+      #       echo "export MONGO_PORT=$MONGO_PORT" >> /shared/.env
+      #       echo "export PORT=$PORT" >> /shared/.env
+      #     volumeMounts:
+      #     - name: config-volume
+      #       mountPath: /shared   
       
-      volumes:
-      - name: config-volume
-        hostPath:
-          path: /home/chung/data
-          type: Directory
+      # volumes:
+      # - name: config-volume
+      #   hostPath:
+      #     path: /home/chung/data
+      #     type: Directory
                
 ---
 apiVersion: v1
