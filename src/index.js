@@ -15,7 +15,7 @@ const SortMiddleware = require('./app/middlewares/SortMiddleware');
 
 const route = require('./routes');
 const db = require('./config/db');
-
+// connect db
 db.connect();
 
 const app = express();
