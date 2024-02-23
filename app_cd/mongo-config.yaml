@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata: 
-  name: mongo-config
-data:
-  MONGO_URL: mongodb://192.168.122.52:30200

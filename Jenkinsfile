@@ -1,6 +1,14 @@
 pipeline {
     
     agent none
+
+    environment {
+        DOCKER_HUB_USERNAME = 'chung123abc'
+        DOCKER_HUB_PASSWORD = '123456a@@'
+        DOCKER_IMAGE_NAME = "chung123abc/web-anime"
+        DOCKER_IMAGE = "web-anime"
+    }
+
     stages {
         stage('Build') {
             agent {
@@ -29,7 +37,7 @@ pipeline {
             agent any
             steps {
                 script {
-                    sh 'docker build -t web-anime .'
+                    sh 'docker build -t ${DOCKER_IMAGE} .'
                 }
             }
         }
@@ -37,26 +45,21 @@ pipeline {
             agent any
             steps {
                 script {
-                    sh 'docker login -u chung123abc -p 123456a@@'
+                    sh 'docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}'
                 }
             }
         }
         stage('Push Image to Hub') {
             agent any
             steps {
-                sh 'docker tag web-anime chung123abc/web-anime:v1.0'
-                sh 'docker push chung123abc/web-anime:v1.0'
+                sh 'docker tag ${DOCKER_IMAGE} ${DOCKER_IMAGE_NAME}:v1.0'
+                sh 'docker push ${DOCKER_IMAGE_NAME}:v1.0'
+                
+                sh 'docker rmi ${DOCKER_IMAGE} -f'
+                sh 'docker rmi ${DOCKER_IMAGE_NAME}:v1.0 -f'
             }
         }
-        // stage('Deploy to K8s') {
-        //     agent any
-        //     steps{
-        //         script {
-        //             sh "cat /home/chung/jenkins/k8s_config/mongo.yaml"
-        //             sh "kubectl apply -f /home/chung/jenkins/k8s_config/mongo.yaml"  
-        //         }
-        //     }
-        // }
+
     }
     post {
       always {
