@@ -85,7 +85,6 @@ pipeline {
         // }
 
         stage('Update value in yaml file in github') {
-            agent any
             steps {
                 srcipt {
                     catchError(){
