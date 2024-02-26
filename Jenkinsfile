@@ -1,4 +1,3 @@
-def githubCreID = 'github'
 def githubUser = 'chungtd203338'
 
 pipeline {
@@ -88,9 +87,12 @@ pipeline {
 
         stage('Update value in yaml file in github') {
             agent any
+             environment { 
+                AN_ACCESS_KEY = credentials('github') 
+            }
             steps {
                 srcipt {
-                    withCredentials([usernamePassword(credentialsId: githubCreID, passwordVariable: 'GIT_HUB_PASSWORD', usernameVariable: 'githubUser')]) {
+                    withCredentials([usernamePassword(credentialsId: AN_ACCESS_KEY, passwordVariable: 'GIT_HUB_PASSWORD', usernameVariable: 'githubUser')]) {
                     sh """#!/bin/bash
                         git clone ${GIT_REPO_CD} --branch ${GIT_BRANCH}
                         git config --global user.email ${GIT_EMAIL}
