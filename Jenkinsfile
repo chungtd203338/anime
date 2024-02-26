@@ -90,7 +90,7 @@ pipeline {
             steps {
                 srcipt {
                     catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
-                        withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_HUB_PASSWORD', usernameVariable: 'GIT_HUB_USERNAME')]) {
+                        withCredentials([usernamePassword(credentialsId: 'GITHUB', passwordVariable: 'GIT_HUB_PASSWORD', usernameVariable: 'GIT_HUB_USERNAME')]) {
                         sh """#!/bin/bash
                             git clone ${GIT_REPO_CD} --branch ${GIT_BRANCH}
                             git config --global user.email ${GIT_EMAIL}
