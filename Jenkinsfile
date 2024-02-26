@@ -4,9 +4,13 @@ pipeline {
 
     environment {
         DOCKER_HUB_USERNAME = 'chung123abc'
-        DOCKER_HUB_PASSWORD = '123456a@@'
         DOCKER_IMAGE_NAME = "chung123abc/web-anime"
         DOCKER_IMAGE = "web-anime"
+        GIT_HUB_USERNAME = "chungtd203338"
+        GIT_REPO_CD = "https://github.com/chungtd203338/anime-cd.git"
+        GIT_BRANCH = "main"
+        VERSION = "v1.${BUILD_NUMBER}"
+        GIT_EMAIL = "chungfaker@gmail.com"
     }
 
     stages {
@@ -52,11 +56,51 @@ pipeline {
         stage('Push Image to Hub') {
             agent any
             steps {
-                sh 'docker tag ${DOCKER_IMAGE} ${DOCKER_IMAGE_NAME}:v1.0'
-                sh 'docker push ${DOCKER_IMAGE_NAME}:v1.0'
+                sh 'docker tag ${DOCKER_IMAGE} ${DOCKER_IMAGE_NAME}:${VERSION}'
+                sh 'docker push ${DOCKER_IMAGE_NAME}:${VERSION}'
                 
                 sh 'docker rmi ${DOCKER_IMAGE} -f'
-                sh 'docker rmi ${DOCKER_IMAGE_NAME}:v1.0 -f'
+                sh 'docker rmi ${DOCKER_IMAGE_NAME}:${VERSION} -f'
+            }
+        }
+
+        // stage('Update Git ArgoCD') {
+        //     agent any
+        //     steps {
+        //         script {
+        //             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
+        //                 withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_HUB_PASSWORD', usernameVariable: 'GIT_HUB_USERNAME')]){
+        //                     sh "git config user.email chungfaker@gmail.com"
+        //                     sh "git config user.name 'chungtd203338'"
+        //                     sh "cat deployment.yaml"
+        //                     sh "sed -i 's+tuannanhh/gitops-demo.*+tuannanhh/gitops-demo:${DOCKERTAG}+g' deployment.yaml"
+        //                     sh "cat deployment.yaml"
+        //                     sh "git add ."
+        //                     sh "git commit -m 'Done get update manifest version: ${env.BUILD_NUMBER}'"
+        //                     sh "git push https://${GIT_HUB_USERNAME}:${GIT_HUB_PASSWORD}@github.com/${GIT_HUB_USERNAME}/anime-cd.git HEAD:main"
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+
+        stage('Update value in yaml file in github') {
+            agent any
+            steps {
+                srcipt {
+                    catchError(){
+                        withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_HUB_PASSWORD', usernameVariable: 'GIT_HUB_USERNAME')]) {
+                        sh """#!/bin/bash
+                            git clone ${GIT_REPO_CD} --branch ${GIT_BRANCH}
+                            git config --global user.email ${GIT_EMAIL}
+                            cd ${argocd}
+                            sed -i 's|  image: .*|  image: "chung123abc/web-anime:${VERSION}"|' argocd/web.yaml
+                            git add . ; git commit -m "Update to version ${VERSION}";git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/chungtd203338/anime-cd.git HEAD:main
+                            cd ..
+                            """		
+                        }
+                    }
+                }
             }
         }
 
