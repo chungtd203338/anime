@@ -14,56 +14,56 @@ pipeline {
         GIT_EMAIL = "chungfaker@gmail.com"
     }
 
-    // stages {
-    //     stage('Build') {
-    //         agent {
-    //             docker {
-    //                 image 'node:14.21-alpine'
-    //                 args '-u root:root'
-    //             }
-    //         }
-    //         steps {
-    //             sh 'node -v'
-    //             sh 'npm install'
-    //         }
-    //     }
-    //     stage('Test') {
-    //         agent {
-    //             docker {
-    //                 image 'node:14.21-alpine'
-    //                 args '-u root:root'
-    //             }
-    //         }
-    //         steps {
-    //             sh 'npm run test'
-    //         }
-    //     }
-    //     stage('Build Docker Image') {
-    //         agent any
-    //         steps {
-    //             script {
-    //                 sh 'docker build -t ${DOCKER_IMAGE} .'
-    //             }
-    //         }
-    //     }
-    //     stage('Login Docker Hub') {
-    //         agent any
-    //         steps {
-    //             script {
-    //                 sh 'docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}'
-    //             }
-    //         }
-    //     }
-    //     stage('Push Image to Hub') {
-    //         agent any
-    //         steps {
-    //             sh 'docker tag ${DOCKER_IMAGE} ${DOCKER_IMAGE_NAME}:${VERSION}'
-    //             sh 'docker push ${DOCKER_IMAGE_NAME}:${VERSION}'
+    stages {
+        // stage('Build') {
+        //     agent {
+        //         docker {
+        //             image 'node:14.21-alpine'
+        //             args '-u root:root'
+        //         }
+        //     }
+        //     steps {
+        //         sh 'node -v'
+        //         sh 'npm install'
+        //     }
+        // }
+        // stage('Test') {
+        //     agent {
+        //         docker {
+        //             image 'node:14.21-alpine'
+        //             args '-u root:root'
+        //         }
+        //     }
+        //     steps {
+        //         sh 'npm run test'
+        //     }
+        // }
+        // stage('Build Docker Image') {
+        //     agent any
+        //     steps {
+        //         script {
+        //             sh 'docker build -t ${DOCKER_IMAGE} .'
+        //         }
+        //     }
+        // }
+        // stage('Login Docker Hub') {
+        //     agent any
+        //     steps {
+        //         script {
+        //             sh 'docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}'
+        //         }
+        //     }
+        // }
+        // stage('Push Image to Hub') {
+        //     agent any
+        //     steps {
+        //         sh 'docker tag ${DOCKER_IMAGE} ${DOCKER_IMAGE_NAME}:${VERSION}'
+        //         sh 'docker push ${DOCKER_IMAGE_NAME}:${VERSION}'
                 
-    //             sh 'docker rmi ${DOCKER_IMAGE} -f'
-    //             sh 'docker rmi ${DOCKER_IMAGE_NAME}:${VERSION} -f'
-    //         }
-    //     }
+        //         sh 'docker rmi ${DOCKER_IMAGE} -f'
+        //         sh 'docker rmi ${DOCKER_IMAGE_NAME}:${VERSION} -f'
+        //     }
+        // }
 
         // stage('Update Git ArgoCD') {
         //     agent any
@@ -76,7 +76,7 @@ pipeline {
         //                     sh "git clone ${GIT_REPO_CD} --branch ${GIT_BRANCH}"
         //                     sh "cd argocd"
         //                     sh "sed -i 's|  image: .*|  image: "chung123abc/web-anime:${VERSION}"|' argocd/web.yaml"
-        //                     sh "git add ."githubUser
+        //                     sh "git add ."
         //                     sh "git commit -m 'Update to version ${VERSION}'"
         //                     sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/chungtd203338/anime-cd.git HEAD:main"
         //                 }
