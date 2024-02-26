@@ -64,45 +64,45 @@ pipeline {
             }
         }
 
-        stage('Update Git ArgoCD') {
-            agent any
-            steps {
-                script {
-                    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
-                        withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_HUB_PASSWORD', usernameVariable: 'GIT_HUB_USERNAME')]){
-                            sh "git config user.email chungfaker@gmail.com"
-                            sh "git config user.name 'chungtd203338'"
-                            sh "git clone ${GIT_REPO_CD} --branch ${GIT_BRANCH}"
-                            sh "cd argocd"
-                            sh "sed -i 's|  image: .*|  image: "chung123abc/web-anime:${VERSION}"|' argocd/web.yaml"
-                            sh "git add ."
-                            sh "git commit -m 'Update to version ${VERSION}'"
-                            sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/chungtd203338/anime-cd.git HEAD:main"
-                        }
-                    }
-                }
-            }
-        }
-
-        // stage('Update value in yaml file in github') {
+        // stage('Update Git ArgoCD') {
         //     agent any
         //     steps {
-        //         srcipt {
+        //         script {
         //             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
-        //                 withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_HUB_PASSWORD', usernameVariable: 'GIT_HUB_USERNAME')]) {
-        //                 sh """#!/bin/bash
-        //                     git clone ${GIT_REPO_CD} --branch ${GIT_BRANCH}
-        //                     git config --global user.email ${GIT_EMAIL}
-        //                     cd argocd
-        //                     sed -i 's|  image: .*|  image: "chung123abc/web-anime:${VERSION}"|' argocd/web.yaml
-        //                     git add . ; git commit -m "Update to version ${VERSION}" ; git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/chungtd203338/anime-cd.git HEAD:main
-        //                     cd ..
-        //                     """		
+        //                 withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_HUB_PASSWORD', usernameVariable: 'GIT_HUB_USERNAME')]){
+        //                     sh "git config user.email chungfaker@gmail.com"
+        //                     sh "git config user.name 'chungtd203338'"
+        //                     sh "git clone ${GIT_REPO_CD} --branch ${GIT_BRANCH}"
+        //                     sh "cd argocd"
+        //                     sh "sed -i 's|  image: .*|  image: "chung123abc/web-anime:${VERSION}"|' argocd/web.yaml"
+        //                     sh "git add ."
+        //                     sh "git commit -m 'Update to version ${VERSION}'"
+        //                     sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/chungtd203338/anime-cd.git HEAD:main"
         //                 }
         //             }
         //         }
         //     }
         // }
+
+        stage('Update value in yaml file in github') {
+            agent any
+            steps {
+                srcipt {
+                    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
+                        withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_HUB_PASSWORD', usernameVariable: 'GIT_HUB_USERNAME')]) {
+                        sh """#!/bin/bash
+                            git clone ${GIT_REPO_CD} --branch ${GIT_BRANCH}
+                            git config --global user.email ${GIT_EMAIL}
+                            cd argocd
+                            sed -i 's|  image: .*|  image: "chung123abc/web-anime:${VERSION}"|' argocd/web.yaml
+                            git add . ; git commit -m "Update to version ${VERSION}" ; git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/chungtd203338/anime-cd.git HEAD:main
+                            cd ..
+                            """		
+                        }
+                    }
+                }
+            }
+        }
 
     }
     post {
