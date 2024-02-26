@@ -1,4 +1,4 @@
-// def githubCreID = 'github'
+def githubCreID = 'github'
 def githubUser = 'chungtd203338'
 
 pipeline {
@@ -90,17 +90,15 @@ pipeline {
             agent any
             steps {
                 srcipt {
-                    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
-                        withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_HUB_PASSWORD', usernameVariable: 'githubUser')]) {
-                        sh """#!/bin/bash
-                            git clone ${GIT_REPO_CD} --branch ${GIT_BRANCH}
-                            git config --global user.email ${GIT_EMAIL}
-                            cd argocd
-                            sed -i 's|  image: .*|  image: "chung123abc/web-anime:${VERSION}"|' argocd/web.yaml
-                            git add . ; git commit -m "Update to version ${VERSION}" ; git push https://${githubUser}:${GIT_HUB_PASSWORD}@github.com/chungtd203338/anime-cd.git HEAD:main
-                            cd ..
-                            """		
-                        }
+                    withCredentials([usernamePassword(credentialsId: githubCreID, passwordVariable: 'GIT_HUB_PASSWORD', usernameVariable: 'githubUser')]) {
+                    sh """#!/bin/bash
+                        git clone ${GIT_REPO_CD} --branch ${GIT_BRANCH}
+                        git config --global user.email ${GIT_EMAIL}
+                        cd argocd
+                        sed -i 's|  image: .*|  image: "chung123abc/web-anime:${VERSION}"|' argocd/web.yaml
+                        git add . ; git commit -m "Update to version ${VERSION}" ; git push https://${githubUser}:${GIT_HUB_PASSWORD}@github.com/chungtd203338/anime-cd.git HEAD:main
+                        cd ..
+                        """		
                     }
                 }
             }
