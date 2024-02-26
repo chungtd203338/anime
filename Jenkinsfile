@@ -1,4 +1,4 @@
-def githubCreID = 'test2'
+def githubCreID = 'github'
 def githubUser = 'chungtd203338'
 
 pipeline {
@@ -97,7 +97,7 @@ pipeline {
                             git config --global user.email ${GIT_EMAIL}
                             cd argocd
                             sed -i 's|  image: .*|  image: "chung123abc/web-anime:${VERSION}"|' argocd/web.yaml
-                            git add . ; git commit -m "Update to version ${VERSION}" ; git push https://${GIT_HUB_USERNAME}:${GIT_HUB_PASSWORD}@github.com/chungtd203338/anime-cd.git HEAD:main
+                            git add . ; git commit -m "Update to version ${VERSION}" ; git push https://${githubUser}:${GIT_HUB_PASSWORD}@github.com/chungtd203338/anime-cd.git HEAD:main
                             cd ..
                             """		
                         }
