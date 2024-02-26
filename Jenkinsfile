@@ -11,7 +11,7 @@ pipeline {
         GIT_BRANCH = "main"
         VERSION = "v1.${BUILD_NUMBER}"
         GIT_EMAIL = "chungfaker@gmail.com"
-        GITHUB = "https://github.com/chungtd203338"
+        GITHUB = "test2"
     }
 
     stages {
