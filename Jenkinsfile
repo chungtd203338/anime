@@ -1,3 +1,6 @@
+def githubCreID = 'test2'
+def githubUser = 'chungtd203338'
+
 pipeline {
     
     agent none
@@ -6,12 +9,10 @@ pipeline {
         DOCKER_HUB_USERNAME = 'chung123abc'
         DOCKER_IMAGE_NAME = "chung123abc/web-anime"
         DOCKER_IMAGE = "web-anime"
-        GIT_HUB_USERNAME = "chungtd203338"
         GIT_REPO_CD = "https://github.com/chungtd203338/anime-cd.git"
         GIT_BRANCH = "main"
         VERSION = "v1.${BUILD_NUMBER}"
         GIT_EMAIL = "chungfaker@gmail.com"
-        GITHUB = "test"
     }
 
     stages {
@@ -90,7 +91,7 @@ pipeline {
             steps {
                 srcipt {
                     catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
-                        withCredentials([usernamePassword(credentialsId: 'GITHUB', passwordVariable: 'GIT_HUB_PASSWORD', usernameVariable: 'GIT_HUB_USERNAME')]) {
+                        withCredentials([usernamePassword(credentialsId: 'githubCreID', passwordVariable: 'GIT_HUB_PASSWORD', usernameVariable: 'githubUser')]) {
                         sh """#!/bin/bash
                             git clone ${GIT_REPO_CD} --branch ${GIT_BRANCH}
                             git config --global user.email ${GIT_EMAIL}
