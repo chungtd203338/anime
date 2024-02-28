@@ -90,7 +90,7 @@ pipeline {
                 AN_ACCESS_KEY = credentials('github') 
             }
             steps {
-                git branch: 'main', credentialsId: AN_ACCESS_KEY, url: 'git@github.com/chungtd203338/anime-cd.git'
+                git branch: 'main', credentialsId: AN_ACCESS_KEY, url: 'https://github.com/chungtd203338/anime-cd.git'
             }
         }
 
