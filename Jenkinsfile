@@ -90,8 +90,6 @@ pipeline {
                 AN_ACCESS_KEY = credentials('github') 
             }
             steps {
-                git config --global --unset http.proxy
-                git config --global --unset https.proxy
                 git branch: 'main', credentialsId: AN_ACCESS_KEY, url: 'git@github.com/chungtd203338/anime-cd.git'
             }
         }
