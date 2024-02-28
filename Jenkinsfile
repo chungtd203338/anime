@@ -85,6 +85,10 @@ pipeline {
         //     }
         // }
         stage('Checkout') {
+            agent any
+            environment { 
+                AN_ACCESS_KEY = credentials('github') 
+            }
             steps {
                 git branch: 'main', credentialsId: AN_ACCESS_KEY, url: 'git@github.com/chungtd203338/anime-cd.git'
             }
@@ -92,7 +96,7 @@ pipeline {
 
         stage('Update value in yaml file in github') {
             agent any
-             environment { 
+            environment { 
                 AN_ACCESS_KEY = credentials('github') 
             }
             steps {
