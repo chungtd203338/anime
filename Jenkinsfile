@@ -3,104 +3,69 @@ def githubUser = 'chungtd203338'
 pipeline {
     
     agent any
-
-    stages {
-        stage('Hello Word') {
-            sh 'echo hello'
-        }
+    tools {
+        nodejs 'node16'
     }
 
-    // environment {
-    //     DOCKER_HUB_USERNAME = 'chung123abc'
-    //     DOCKER_IMAGE_NAME = "chung123abc/web-anime"
-    //     DOCKER_IMAGE = "web-anime"
-    //     GIT_REPO_CD = "https://github.com/chungtd203338/anime-cd.git"
-    //     GIT_BRANCH = "main"
-    //     VERSION = "v1.${BUILD_NUMBER}"
-    //     GIT_EMAIL = "chungfaker@gmail.com"
-    // }
+    environment {
+        github = 'github-account'
+        DOCKER_HUB_USERNAME = 'chung123abc'
+        DOCKER_IMAGE_NAME = "web-anime"
+        GIT_HUB_USER = 'chungtd203338'
+        GIT_REPO = "https://github.com/chungtd203338/anime-cd.git"
+        GIT_BRANCH = "main"
+        VERSION = "v1.${BUILD_NUMBER}"
+        GIT_EMAIL = "chungfaker@gmail.com"
+    }
 
-    // stages {
-    //     stage('Build') {
-    //         agent {
-    //             docker {
-    //                 image 'node:14.21-alpine'
-    //                 args '-u root:root'
-    //             }
-    //         }
-    //         steps {
-    //             sh 'node -v'
-    //             sh 'npm install'
-    //         }
-    //     }
-    //     stage('Test') {
-    //         agent {
-    //             docker {
-    //                 image 'node:14.21-alpine'
-    //                 args '-u root:root'
-    //             }
-    //         }
-    //         steps {
-    //             sh 'npm run test'
-    //         }
-    //     }
-    //     stage('Build Docker Image') {
-    //         agent any
-    //         steps {
-    //             script {
-    //                 sh 'docker build -t ${DOCKER_IMAGE} .'
-    //             }
-    //         }
-    //     }
-    //     stage('Login Docker Hub') {
-    //         agent any
-    //         steps {
-    //             script {
-    //                 sh 'docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}'
-    //             }
-    //         }
-    //     }
-    //     stage('Push Image to Hub') {
-    //         agent any
-    //         steps {
-    //             sh 'docker tag ${DOCKER_IMAGE} ${DOCKER_IMAGE_NAME}:${VERSION}'
-    //             sh 'docker push ${DOCKER_IMAGE_NAME}:${VERSION}'
-                
-    //             sh 'docker rmi ${DOCKER_IMAGE} -f'
-    //             sh 'docker rmi ${DOCKER_IMAGE_NAME}:${VERSION} -f'
-    //         }
-    //     }
+    stages {
 
-    //     stage('Checkout') {
-    //         agent any
-    //         environment { 
-    //             AN_ACCESS_KEY = credentials('github') 
-    //         }
-    //         steps {
-    //             git branch: 'main', credentialsId: AN_ACCESS_KEY, url: 'https://github.com/chungtd203338/anime-cd.git'
-    //         }
-    //     }
+        stage('clean workspace'){
+            steps{
+                cleanWs()
+            }
+        }
 
-    //     stage('Update value in yaml file in github') {
-    //         agent any
-    //         environment { 
-    //             AN_ACCESS_KEY = credentials('github') 
-    //         }
-    //         steps {
-    //             script {
-    //                 withCredentials([usernamePassword(credentialsId: AN_ACCESS_KEY, passwordVariable: 'GIT_HUB_PASSWORD', usernameVariable: 'githubUser')]) {
-    //                 sh """#!/bin/bash
-    //                     git clone ${GIT_REPO_CD} --branch ${GIT_BRANCH}
-    //                     git config --global user.email ${GIT_EMAIL}
-    //                     cd argocd
-    //                     sed -i 's|  image: .*| image: "chung123abc/web-anime:v1.${VERSION}"|' argocd/web.yaml
-    //                     git add . ; git commit -m "Update to version ${VERSION}" ; git push https://${githubUser}:${GIT_HUB_PASSWORD}@github.com/chungtd203338/anime-cd.git HEAD:main
-    //                     cd ..
-    //                     """		
-    //                 }
-    //             }
-    //         }
-    //     }
+        stage('Install Dependencies') {
+            steps {
+                sh 'node -v'
+                sh 'npm install'
+                sh 'npm run test'
+            }
+        }
 
-    // }
+        stage('Login Docker Hub') {
+            steps {
+                script {
+                    sh 'docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}'
+                }
+            }
+        }
+
+        stage('Build and Push Image to Docker Hub') {
+            steps {
+                sh 'docker build -t ${DOCKER_HUB_USERNAME}/${DOCKER_IMAGE_NAME}:${VERSION} .'
+                sh 'docker push ${DOCKER_HUB_USERNAME}/${DOCKER_IMAGE_NAME}:${VERSION}'
+                sh 'docker rmi ${DOCKER_HUB_USERNAME}/${DOCKER_IMAGE_NAME}:${VERSION} -f'
+            }
+        }
+
+        stage('Update Version App') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: github, passwordVariable: 'GIT_HUB_PASSWORD', usernameVariable: 'GIT_HUB_USER')]) {
+                    sh """#!/bin/bash
+                        git clone ${GIT_REPO} --branch ${GIT_BRANCH}
+                        git config --global user.email ${GIT_EMAIL}
+                        cd argocd
+                        sed -i 's|  image: .*| image: "chung123abc/web-anime:${VERSION}"|' argocd/web.yaml
+                        git add . ; git commit -m "Update to version ${VERSION}" ; git push https://${GIT_HUB_USER}:${GIT_HUB_PASSWORD}@github.com/chungtd203338/anime-cd.git HEAD:main
+                        cd ..
+                        """		
+                    }
+                }
+            }
+        }
+
+    }
 }
