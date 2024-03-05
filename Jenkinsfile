@@ -79,8 +79,9 @@ pipeline {
                         cd anime-cd/argocd
                         ls
                         sed -i 's|  image: .*| image: "chung123abc/web-anime:${VERSION}"|' web.yaml
-                        git add . ; git commit -m "Update to version ${VERSION}" ; git push https://${GIT_HUB_USER}:${GIT_HUB_PASSWORD}@github.com/chungtd203338/anime-cd.git HEAD:main
-                        ls
+                        cd ..
+                        git add . ; git commit -m "Update to version ${VERSION}" 
+                        git push https://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@github.com/chungtd203338/anime-cd.git HEAD:main
                         """		
                     }
                 }
