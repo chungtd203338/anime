@@ -81,7 +81,7 @@ pipeline {
                         sed -i 's|  image: .*| image: "chung123abc/web-anime:${VERSION}"|' web.yaml
                         cd ..
                         git add . ; git commit -m "Update to version ${VERSION}" 
-                        git push https://${GIT_HUB_USER}:0397021042a@github.com/chungtd203338/anime-cd.git HEAD:main
+                        git push https://${GIT_HUB_USER}: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@github.com/chungtd203338/anime-cd.git HEAD:main
                         """		
                     }
                 }
