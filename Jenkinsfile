@@ -65,13 +65,21 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: github, passwordVariable: 'GIT_HUB_PASSWORD', usernameVariable: 'GIT_HUB_USER')]) {
+                    // sh """#!/bin/bash
+                    //     git clone ${GIT_REPO} --branch ${GIT_BRANCH}
+                    //     git config --global user.email ${GIT_EMAIL}
+                    //     pwd
+                    //     ls
+                    //     cd argocd
+                    //     sed -i 's|  image: .*| image: "chung123abc/web-anime:${VERSION}"|' argocd/web.yaml
+                    //     git add . ; git commit -m "Update to version ${VERSION}" ; git push https://${GIT_HUB_USER}:${GIT_HUB_PASSWORD}@github.com/chungtd203338/anime-cd.git HEAD:main
+                    //     """		
+                    // }
                     sh """#!/bin/bash
                         git clone ${GIT_REPO} --branch ${GIT_BRANCH}
                         git config --global user.email ${GIT_EMAIL}
-                        cd argocd
-                        sed -i 's|  image: .*| image: "chung123abc/web-anime:${VERSION}"|' argocd/web.yaml
-                        git add . ; git commit -m "Update to version ${VERSION}" ; git push https://${GIT_HUB_USER}:${GIT_HUB_PASSWORD}@github.com/chungtd203338/anime-cd.git HEAD:main
-                        cd ..
+                        pwd
+                        ls
                         """		
                     }
                 }
