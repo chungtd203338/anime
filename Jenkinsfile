@@ -79,6 +79,7 @@ pipeline {
                         git clone ${GIT_REPO} --branch ${GIT_BRANCH}
                         git config --global user.email ${GIT_EMAIL}
                         pwd
+                        cd anime-cd
                         ls
                         """		
                     }
