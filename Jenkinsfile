@@ -76,12 +76,14 @@ pipeline {
                     sh """#!/bin/bash
                         git clone ${GIT_REPO} --branch ${GIT_BRANCH}
                         git config --global user.email ${GIT_EMAIL}
+                        git config --global user.name "chungtd203338"
+                        git config -l
                         cd anime-cd/argocd
                         ls
                         sed -i 's|  image: .*| image: "chung123abc/web-anime:${VERSION}"|' web.yaml
                         cd ..
                         git add . ; git commit -m "Update to version ${VERSION}" 
-                        git push https://${GIT_HUB_USER}:${GIT_HUB_PASSWORD}@github.com/chungtd203338/anime-cd.git HEAD:main
+                        git push https://${GIT_HUB_USER}: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@github.com/chungtd203338/anime-cd.git HEAD:main
                         """		
                     }
                 }
