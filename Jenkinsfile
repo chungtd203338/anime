@@ -5,6 +5,7 @@ pipeline {
     agent any
     tools {
         nodejs 'node16'
+        jdk 'jdk17'
     }
 
     environment {
@@ -26,10 +27,16 @@ pipeline {
             }
         }
 
+        stage('Checkout from Git'){
+            steps{
+                git branch: '${GIT_BRANCH}', url: '${GIT_REPO}'
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
                 sh 'node -v'
-                // sh 'npm install'
+                sh 'npm install'
             }
         }
 
