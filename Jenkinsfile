@@ -29,7 +29,7 @@ pipeline {
 
         stage('Checkout from Git'){
             steps{
-                git branch: 'main', url: 'https://github.com/chungtd203338/anime-cd.git'
+                git branch: 'main', url: 'https://github.com/chungtd203338/anime.git'
             }
         }
 
