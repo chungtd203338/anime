@@ -29,7 +29,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh 'node -v'
-                sh 'npm install'
+                // sh 'npm install'
             }
         }
 
@@ -46,7 +46,7 @@ pipeline {
                 script{
                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
                         sh 'ls'
-                        sh 'docker build -t ${DOCKER_HUB_USERNAME}/${DOCKER_IMAGE_NAME}:${VERSION} -f dockerfile'
+                        sh 'docker build -t ${DOCKER_HUB_USERNAME}/${DOCKER_IMAGE_NAME}:${VERSION} .'
                         sh 'docker push ${DOCKER_HUB_USERNAME}/${DOCKER_IMAGE_NAME}:${VERSION}'
                         sh 'docker rmi ${DOCKER_HUB_USERNAME}/${DOCKER_IMAGE_NAME}:${VERSION} -f'
                     }
