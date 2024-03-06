@@ -65,7 +65,7 @@ pipeline {
                         // sh "pwd"
                         sh '''
                             #!/bin/bash
-                            argocd app create anime --repo oci://registry-1.docker.io/chung123abc/anime-app-helm --helm-chart chung123abc/anime-app-helm --revision 1 --dest-namespace anime --dest-server https://kubernetes.default.svc
+                            argocd app create anime-app --repo https://github.com/chungtd203338/anime-chart.git --path anime-app --dest-namespace anime --dest-server https://kubernetes.default.svc --helm-set replicaCount=2
                         '''
                     }
                 }
