@@ -10,6 +10,7 @@ pipeline {
 
     environment {
         github = 'github-account'
+        argocdCredential = 'argocd-account'
         DOCKER_HUB_USERNAME = 'chung123abc'
         DOCKER_IMAGE_NAME = "web-anime"
         GIT_HUB_USER = 'chungtd203338'
@@ -17,74 +18,55 @@ pipeline {
         GIT_BRANCH = "main"
         VERSION = "v1.${BUILD_NUMBER}"
         GIT_EMAIL = "chungfaker@gmail.com"
+        ARGOCD_USERNAME = 'admin'
+        ARGOCD_PASSWORD = 'VfNSX5CWZi1nFZHc'
+        ARGOCD_SERVER = 'localhost:9000'
     }
 
     stages {
 
-        // stage('clean workspace'){
-        //     steps{
-        //         cleanWs()
-        //     }
-        // }
+        stage('clean workspace'){
+            steps{
+                cleanWs()
+            }
+        }
 
-        // stage('Checkout from Git'){
-        //     steps{
-        //         git branch: 'main', url: 'https://github.com/chungtd203338/anime.git'
-        //     }
-        // }
+        stage('Checkout from Git'){
+            steps{
+                git branch: 'main', url: 'https://github.com/chungtd203338/anime.git'
+            }
+        }
 
-        // stage('Install Dependencies') {
-        //     steps {
-        //         sh 'node -v'
-        //         sh 'npm install'
-        //     }
-        // }
+        stage('Install Dependencies') {
+            steps {
+                sh 'node -v'
+                sh 'npm install'
+            }
+        }
 
-        // // stage('Login Docker Hub') {
-        // //     steps {
-        // //         script {
-        // //             sh 'docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}'
-        // //         }
-        // //     }
-        // // }
-
-        // stage('Build and Push Image to Docker Hub') {
-        //     steps {
-        //         script{
-        //            withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
-        //                 sh 'ls'
-        //                 sh 'docker build -t ${DOCKER_HUB_USERNAME}/${DOCKER_IMAGE_NAME}:${VERSION} .'
-        //                 sh 'docker push ${DOCKER_HUB_USERNAME}/${DOCKER_IMAGE_NAME}:${VERSION}'
-        //                 sh 'docker rmi ${DOCKER_HUB_USERNAME}/${DOCKER_IMAGE_NAME}:${VERSION} -f'
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Build and Push Image to Docker Hub') {
+            steps {
+                script{
+                   withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
+                        sh 'ls'
+                        sh 'docker build -t ${DOCKER_HUB_USERNAME}/${DOCKER_IMAGE_NAME}:${VERSION} .'
+                        sh 'docker push ${DOCKER_HUB_USERNAME}/${DOCKER_IMAGE_NAME}:${VERSION}'
+                        sh 'docker rmi ${DOCKER_HUB_USERNAME}/${DOCKER_IMAGE_NAME}:${VERSION} -f'
+                    }
+                }
+            }
+        }
 
         stage('Update Version App') {
             steps {
-                script {
-                    withCredentials([usernamePassword(credentialsId: github, passwordVariable: 'GIT_HUB_PASSWORD', usernameVariable: 'GIT_HUB_USER')]) {
-                    // sh """#!/bin/bash
-                    //     git clone ${GIT_REPO} --branch ${GIT_BRANCH}
-                    //     git config --global user.email ${GIT_EMAIL}
-                    //     pwd
-                    //     ls
-                    //     cd argocd
-                    //     """		
-                    // }
-                    sh """#!/bin/bash
-                        git clone ${GIT_REPO} --branch ${GIT_BRANCH}
-                        git config --global user.email ${GIT_EMAIL}
-                        git config --global user.name "chungtd203338"
-                        git config -l
-                        cd anime-cd/argocd
-                        ls
-                        sed -i 's|  image: .*| image: "chung123abc/web-anime:${VERSION}"|' web.yaml
-                        cd ..
-                        git add . ; git commit -m "Update to version ${VERSION}" 
-                        git push origin main
-                        """		
+                withCredentials([usernamePassword(credentialsId: argocdCredential, usernameVariable: 'ARGOCD_USERNAME', passwordVariable: 'ARGOCD_PASSWORD')]) {
+                    sh "argocd login ${argocd} --insecure --username $ARGOCD_USERNAME --password $ARGOCD_PASSWORD"
+                    script {
+                        // sh "pwd"
+                        sh '''
+                            #!/bin/bash
+                            argocd app create anime --repo https://hub.docker.com/repository/docker/chung123abc/anime-app-helm --helm-chart chung123abc/anime-app-helm --revision 1 --dest-namespace anime --dest-server https://kubernetes.default.svc
+                        '''
                     }
                 }
             }
