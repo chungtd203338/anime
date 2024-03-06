@@ -25,37 +25,37 @@ pipeline {
 
     stages {
 
-        stage('clean workspace'){
-            steps{
-                cleanWs()
-            }
-        }
+        // stage('clean workspace'){
+        //     steps{
+        //         cleanWs()
+        //     }
+        // }
 
-        stage('Checkout from Git'){
-            steps{
-                git branch: 'main', url: 'https://github.com/chungtd203338/anime.git'
-            }
-        }
+        // stage('Checkout from Git'){
+        //     steps{
+        //         git branch: 'main', url: 'https://github.com/chungtd203338/anime.git'
+        //     }
+        // }
 
-        stage('Install Dependencies') {
-            steps {
-                sh 'node -v'
-                sh 'npm install'
-            }
-        }
+        // stage('Install Dependencies') {
+        //     steps {
+        //         sh 'node -v'
+        //         sh 'npm install'
+        //     }
+        // }
 
-        stage('Build and Push Image to Docker Hub') {
-            steps {
-                script{
-                   withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
-                        sh 'ls'
-                        sh 'docker build -t ${DOCKER_HUB_USERNAME}/${DOCKER_IMAGE_NAME}:${VERSION} .'
-                        sh 'docker push ${DOCKER_HUB_USERNAME}/${DOCKER_IMAGE_NAME}:${VERSION}'
-                        sh 'docker rmi ${DOCKER_HUB_USERNAME}/${DOCKER_IMAGE_NAME}:${VERSION} -f'
-                    }
-                }
-            }
-        }
+        // stage('Build and Push Image to Docker Hub') {
+        //     steps {
+        //         script{
+        //            withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
+        //                 sh 'ls'
+        //                 sh 'docker build -t ${DOCKER_HUB_USERNAME}/${DOCKER_IMAGE_NAME}:${VERSION} .'
+        //                 sh 'docker push ${DOCKER_HUB_USERNAME}/${DOCKER_IMAGE_NAME}:${VERSION}'
+        //                 sh 'docker rmi ${DOCKER_HUB_USERNAME}/${DOCKER_IMAGE_NAME}:${VERSION} -f'
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('Update Version App') {
             steps {
