@@ -60,7 +60,7 @@ pipeline {
         stage('Update Version App') {
             steps {
                 withCredentials([usernamePassword(credentialsId: argocdCredential, usernameVariable: 'ARGOCD_USERNAME', passwordVariable: 'ARGOCD_PASSWORD')]) {
-                    sh "argocd login ${argocd} --insecure --username $ARGOCD_USERNAME --password $ARGOCD_PASSWORD"
+                    sh "argocd login ${ARGOCD_SERVER} --insecure --username $ARGOCD_USERNAME --password $ARGOCD_PASSWORD"
                     script {
                         // sh "pwd"
                         sh '''
