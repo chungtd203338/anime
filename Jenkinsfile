@@ -65,7 +65,7 @@ pipeline {
                         // sh "pwd"
                         sh '''
                             #!/bin/bash
-                            argocd app create anime-app --repo https://github.com/chungtd203338/anime-chart.git --path anime-app-helm --helm-set app.image=chung123abc/web-anime:${VERSION} --dest-namespace anime --dest-server https://kubernetes.default.svc --sync-policy automated --auto-prune --self-heal
+                            argocd app create anime-app --repo https://github.com/chungtd203338/anime-chart.git --path anime-app-helm --helm-set app.image=${DOCKER_HUB_USERNAME}/web-anime:${VERSION} --dest-namespace anime --dest-server https://kubernetes.default.svc --sync-policy automated --auto-prune --self-heal --upsert
                         '''
                     }
                 }
